@@ -1749,42 +1749,45 @@
     <div class="wrap">
       <div class="section-head reveal">
         <p class="eyebrow">Academic Excellence</p>
-        <h2>Class 5 Toppers (सत्र 2026)</h2>
-        <p>Celebrating the outstanding academic accomplishments of our Class 5 students who made us proud with their
+        <h2>Board Toppers (सत्र 2026)</h2>
+        <p>Celebrating the outstanding academic accomplishments of our students who made us proud with their
           dedication and hard work.</p>
       </div>
 
-      <div class="topper-grid stagger-grid">
-        <div class="topper-card reveal rank-1">
-          <div class="medal-badge">🥇 1st Rank</div>
-          <div class="avatar-circle"><img src="images/topper_bhumika.png" alt="Bhumika Jatwar"></div>
-          <h3>Bhumika Jatwar</h3>
-          <p class="parent-name">D/o Mr. Jagdish Jatwar</p>
-          <div class="score">92.70%</div>
-        </div>
+      <div id="toppers-container">
+        <div class="topper-group-title" style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-top: 40px; margin-bottom: 24px; font-weight: bold; border-left: 4px solid var(--gold); padding-left: 12px;">Class 5th Toppers (कक्षा 5वीं के टॉपर)</div>
+        <div class="topper-grid stagger-grid">
+          <div class="topper-card reveal rank-1">
+            <div class="medal-badge">🥇 1st Rank</div>
+            <div class="avatar-circle"><img src="images/topper_bhumika.png" alt="Bhumika Jatwar"></div>
+            <h3>Bhumika Jatwar</h3>
+            <p class="parent-name">D/o Mr. Jagdish Jatwar</p>
+            <div class="score">92.70%</div>
+          </div>
 
-        <div class="topper-card reveal rank-2">
-          <div class="medal-badge">🥈 2nd Rank</div>
-          <div class="avatar-circle"><img src="images/topper_sakshi.png" alt="Sakshi Yadav"></div>
-          <h3>Sakshi Yadav</h3>
-          <p class="parent-name">D/o Mr. Vijay Kumar Yadav</p>
-          <div class="score">91.10%</div>
-        </div>
+          <div class="topper-card reveal rank-2">
+            <div class="medal-badge">🥈 2nd Rank</div>
+            <div class="avatar-circle"><img src="images/topper_sakshi.png" alt="Sakshi Yadav"></div>
+            <h3>Sakshi Yadav</h3>
+            <p class="parent-name">D/o Mr. Vijay Kumar Yadav</p>
+            <div class="score">91.10%</div>
+          </div>
 
-        <div class="topper-card reveal rank-3">
-          <div class="medal-badge">🥉 3rd Rank</div>
-          <div class="avatar-circle"><img src="images/topper_misti.png" alt="Misti Yadav"></div>
-          <h3>Misti Yadav</h3>
-          <p class="parent-name">D/o Mr. Vijay Kumar Yadav</p>
-          <div class="score">85.90%</div>
-        </div>
+          <div class="topper-card reveal rank-3">
+            <div class="medal-badge">🥉 3rd Rank</div>
+            <div class="avatar-circle"><img src="images/topper_misti.png" alt="Misti Yadav"></div>
+            <h3>Misti Yadav</h3>
+            <p class="parent-name">D/o Mr. Vijay Kumar Yadav</p>
+            <div class="score">85.90%</div>
+          </div>
 
-        <div class="topper-card reveal rank-4">
-          <div class="medal-badge">✨ Outstanding</div>
-          <div class="avatar-circle"><img src="images/topper_kusum.png" alt="Kusum Patre"></div>
-          <h3>Kusum Patre</h3>
-          <p class="parent-name">D/o Mr. Dhanaram Patre</p>
-          <div class="score">80.20%</div>
+          <div class="topper-card reveal rank-4">
+            <div class="medal-badge">✨ Outstanding</div>
+            <div class="avatar-circle"><img src="images/topper_kusum.png" alt="Kusum Patre"></div>
+            <h3>Kusum Patre</h3>
+            <p class="parent-name">D/o Mr. Dhanaram Patre</p>
+            <div class="score">80.20%</div>
+          </div>
         </div>
       </div>
     </div>
@@ -2547,24 +2550,71 @@
       fetch('data/toppers.json')
         .then(res => res.json())
         .then(data => {
-          if (data && data.toppers) {
-            const grid = document.querySelector('.topper-grid');
-            if (!grid) return;
-            grid.innerHTML = data.toppers.map(topper => `
-              <div class="topper-card reveal ${topper.rankClass}">
-                <div class="medal-badge">${topper.rankText}</div>
-                <div class="avatar-circle"><img src="${topper.photo}" alt="${topper.name}"></div>
-                <h3>${topper.name}</h3>
-                <p class="parent-name">${topper.parentName}</p>
-                <div class="score">${topper.percentage}</div>
-              </div>
-            `).join('');
-            if (typeof io !== 'undefined') {
-              grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+          if (data && data.toppers && data.toppers.length > 0) {
+            const container = document.getElementById('toppers-container');
+            const toppersSection = document.getElementById('toppers');
+            if (!container) return;
+            
+            // Group toppers by class (e.g. "5th", "8th")
+            const groups = {};
+            data.toppers.forEach(topper => {
+              const cls = topper.class || '5th';
+              if (!groups[cls]) groups[cls] = [];
+              groups[cls].push(topper);
+            });
+
+            // If no toppers found in any group
+            if (Object.keys(groups).length === 0) {
+              if (toppersSection) toppersSection.style.display = 'none';
+              return;
             }
+
+            if (toppersSection) toppersSection.style.display = 'block';
+
+            // Generate HTML for each group
+            let htmlContent = '';
+            
+            // Order classes: 5th first, then 8th
+            const classOrder = ['5th', '8th'];
+            // Append any other classes that might be added dynamically
+            Object.keys(groups).forEach(cls => {
+              if (!classOrder.includes(cls)) classOrder.push(cls);
+            });
+
+            classOrder.forEach(cls => {
+              const students = groups[cls];
+              if (students && students.length > 0) {
+                htmlContent += `
+                  <div class="topper-group-title" style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-top: 40px; margin-bottom: 24px; font-weight: bold; border-left: 4px solid var(--gold); padding-left: 12px;">Class ${cls} Toppers (कक्षा ${cls}वीं के टॉपर)</div>
+                  <div class="topper-grid stagger-grid">
+                    ${students.map(topper => `
+                      <div class="topper-card reveal ${topper.rankClass}">
+                        <div class="medal-badge">${topper.rankText}</div>
+                        <div class="avatar-circle"><img src="${topper.photo}" alt="${topper.name}"></div>
+                        <h3>${topper.name}</h3>
+                        <p class="parent-name">${topper.parentName}</p>
+                        <div class="score">${topper.percentage}</div>
+                      </div>
+                    `).join('')}
+                  </div>
+                `;
+              }
+            });
+
+            container.innerHTML = htmlContent;
+
+            if (typeof io !== 'undefined') {
+              container.querySelectorAll('.reveal').forEach(el => io.observe(el));
+            }
+          } else {
+            // Hide toppers section if data is empty
+            const toppersSection = document.getElementById('toppers');
+            if (toppersSection) toppersSection.style.display = 'none';
           }
         })
-        .catch(err => console.warn('Using fallback static toppers data:', err));
+        .catch(err => {
+          console.warn('Using fallback static toppers data:', err);
+        });
     }
 
     function loadDynamicEvents() {

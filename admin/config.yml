@@ -28,13 +28,14 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
       - name: "toppers"
-        label: "Class 5 Toppers"
+        label: "Academic Toppers"
         file: "data/toppers.json"
         fields:
           - name: "toppers"
             label: "Toppers List"
             widget: "list"
             fields:
+              - { label: "Class", name: "class", widget: "select", options: ["5th", "8th"], default: "5th" }
               - { label: "Student Name", name: "name", widget: "string" }
               - { label: "Percentage Score", name: "percentage", widget: "string" }
               - { label: "Parent Name (Father)", name: "parentName", widget: "string" }
