@@ -31,14 +31,6 @@
       "rankText": "✨ Outstanding",
       "rankClass": "rank-4",
       "photo": "images/topper_kusum.png"
-    },
-    {
-      "name": "demo1",
-      "percentage": "85",
-      "parentName": "demo father",
-      "rankText": "6th",
-      "rankClass": "class 6",
-      "photo": "/images/WhatsApp Image 2026-03-15 at 20.33.32.jpeg"
     }
   ]
 }
