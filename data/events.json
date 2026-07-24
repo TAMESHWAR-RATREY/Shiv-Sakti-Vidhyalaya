@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "tag": "Upcoming",
+      "isRecent": false,
+      "title": "Annual Sports Day",
+      "description": "Join us for a day of athletic events, races, and team competitions for all age groups."
+    },
+    {
+      "tag": "Notice",
+      "isRecent": false,
+      "title": "Admission Forms Now Available",
+      "description": "Admission forms for the new academic session are now available at the school office."
+    },
+    {
+      "tag": "Recent",
+      "isRecent": true,
+      "title": "Inter-School Competition Medals",
+      "description": "Our students brought home multiple medals at the recent inter-school competition — huge congratulations!"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "gallery": [
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.35 (1).jpeg",
+      "alt": "Classroom Celebration",
+      "title": "Classroom Celebration",
+      "desc": "Students and teachers celebrating academic accomplishments together.",
+      "layout": "wide"
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.34.jpeg",
+      "alt": "Proud Medallists",
+      "title": "Proud Medallists",
+      "desc": "Young students smiling as they display their certificates and medals.",
+      "layout": "tall"
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.32.jpeg",
+      "alt": "Trophies and Medals",
+      "title": "Trophies and Medals",
+      "desc": "Trophies and medals awarded for attendance, discipline, and academics.",
+      "layout": "tall"
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.32 (1).jpeg",
+      "alt": "Talent Felicitation Ceremony",
+      "title": "Talent Felicitation Ceremony",
+      "desc": "Honoring outstanding students during the annual award function.",
+      "layout": "wide"
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.33.jpeg",
+      "alt": "Trophy Presentation",
+      "title": "Trophy Presentation",
+      "desc": "A proud moment as a student receives recognition from the faculty.",
+      "layout": ""
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.33 (1).jpeg",
+      "alt": "Achievers in Uniform",
+      "title": "Achievers in Uniform",
+      "desc": "Students proudly displaying their medals in school uniform.",
+      "layout": ""
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.34 (2).jpeg",
+      "alt": "Class of 2026 Achievers",
+      "title": "Class of 2026 Achievers",
+      "desc": "Group of students celebrated for excellence in all round activities.",
+      "layout": "wide"
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 20.33.35.jpeg",
+      "alt": "Student of the Year",
+      "title": "Student of the Year",
+      "desc": "Close up of the prestigious Student of the Year shield.",
+      "layout": "tall"
+    },
+    {
+      "src": "images/WhatsApp Image 2026-03-15 at 21.21.49.jpeg",
+      "alt": "Award Felicitation",
+      "title": "Award Felicitation",
+      "desc": "Teachers and students applauding the prize distribution.",
+      "layout": ""
+    }
+  ]
+}

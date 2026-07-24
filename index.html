@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shiv Sakti Vidhyalaya, Odekera</title>
   <link rel="icon" type="image/jpeg" href="images/logo.jpeg?v=1">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
@@ -2320,7 +2321,7 @@
     </div>
     <div class="wrap foot-bottom">
       <span>© 2026 Shiv Sakti Vidhyalaya, Odekera. All rights reserved.</span>
-      <a href="admin.html" class="admin-link">Admin Panel</a>
+      <a href="admin/" class="admin-link">Admin Panel</a>
     </div>
   </footer>
 
@@ -2475,7 +2476,7 @@
 
     let currentImgIndex = 0;
 
-    const galleryData = [
+    let galleryData = [
       { src: "images/WhatsApp Image 2026-03-15 at 20.33.35 (1).jpeg", title: "Classroom Celebration" },
       { src: "images/WhatsApp Image 2026-03-15 at 20.33.34.jpeg", title: "Proud Medallists" },
       { src: "images/WhatsApp Image 2026-03-15 at 20.33.32.jpeg", title: "Trophies and Medals" },
@@ -2541,6 +2542,122 @@
       });
     }
 
+    // Dynamic Content Loading from CMS JSON data files
+    function loadDynamicToppers() {
+      fetch('data/toppers.json')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.toppers) {
+            const grid = document.querySelector('.topper-grid');
+            if (!grid) return;
+            grid.innerHTML = data.toppers.map(topper => `
+              <div class="topper-card reveal ${topper.rankClass}">
+                <div class="medal-badge">${topper.rankText}</div>
+                <div class="avatar-circle"><img src="${topper.photo}" alt="${topper.name}"></div>
+                <h3>${topper.name}</h3>
+                <p class="parent-name">${topper.parentName}</p>
+                <div class="score">${topper.percentage}</div>
+              </div>
+            `).join('');
+            if (typeof io !== 'undefined') {
+              grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+            }
+          }
+        })
+        .catch(err => console.warn('Using fallback static toppers data:', err));
+    }
+
+    function loadDynamicEvents() {
+      fetch('data/events.json')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.events) {
+            const grid = document.querySelector('.news-grid');
+            if (!grid) return;
+            grid.innerHTML = data.events.map(event => `
+              <div class="news-card reveal">
+                <div class="news-date ${event.isRecent ? 'tag-recent' : ''}">${event.tag}</div>
+                <div class="body">
+                  <h4>${event.title}</h4>
+                  <p>${event.description}</p>
+                </div>
+              </div>
+            `).join('');
+            if (typeof io !== 'undefined') {
+              grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+            }
+          }
+        })
+        .catch(err => console.warn('Using fallback static events data:', err));
+    }
+
+    function loadDynamicDownloads() {
+      fetch('data/downloads.json')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.downloads) {
+            const list = document.querySelector('.download-list');
+            if (!list) return;
+            list.innerHTML = data.downloads.map(dl => `
+              <div class="download-item reveal">
+                <div class="left">
+                  <div class="file-icon">📄</div>
+                  <div>
+                    <div class="name">${dl.name}</div>
+                    <div class="meta">${dl.meta}</div>
+                  </div>
+                </div>
+                <a href="${dl.url}" class="dl-btn">Download</a>
+              </div>
+            `).join('');
+            if (typeof io !== 'undefined') {
+              list.querySelectorAll('.reveal').forEach(el => io.observe(el));
+            }
+          }
+        })
+        .catch(err => console.warn('Using fallback static downloads data:', err));
+    }
+
+    function loadDynamicGallery() {
+      fetch('data/gallery.json')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.gallery) {
+            galleryData = data.gallery;
+            const grid = document.querySelector('.gallery-grid');
+            if (!grid) return;
+            grid.innerHTML = data.gallery.map((item, idx) => `
+              <div class="gallery-item ${item.layout || ''} reveal" data-index="${idx}">
+                <img src="${item.src}" alt="${item.alt}">
+                <div class="overlay">
+                  <h4>${item.title}</h4>
+                  <p>${item.desc}</p>
+                </div>
+              </div>
+            `).join('');
+
+            // Re-attach event listeners for lightbox on dynamic elements
+            grid.querySelectorAll('.gallery-item').forEach(item => {
+              item.addEventListener('click', () => {
+                const idx = parseInt(item.getAttribute('data-index'));
+                openLightbox(idx);
+              });
+            });
+
+            if (typeof io !== 'undefined') {
+              grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+            }
+          }
+        })
+        .catch(err => console.warn('Using fallback static gallery data:', err));
+    }
+
+    // Call dynamic loaders on init
+    loadDynamicToppers();
+    loadDynamicEvents();
+    loadDynamicDownloads();
+    loadDynamicGallery();
+
     // Enquiry form handling with WhatsApp redirection
     function handleEnquiry(event) {
       event.preventDefault();
@@ -2581,6 +2698,17 @@
           document.getElementById('parentMessage').value = '';
         }
       }, 1500);
+    }
+
+    // Netlify Identity Redirection Handler
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
     }
   </script>
 

@@ -1,0 +1,67 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable local backend during local testing
+local_backend: true
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "website_data"
+    label: "Website Data"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "events"
+        label: "News & Events"
+        file: "data/events.json"
+        fields:
+          - name: "events"
+            label: "Events List"
+            widget: "list"
+            fields:
+              - { label: "Tag (e.g. Notice, Upcoming)", name: "tag", widget: "string" }
+              - { label: "Highlight Red (Is Recent?)", name: "isRecent", widget: "boolean", default: false }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+      - name: "toppers"
+        label: "Class 5 Toppers"
+        file: "data/toppers.json"
+        fields:
+          - name: "toppers"
+            label: "Toppers List"
+            widget: "list"
+            fields:
+              - { label: "Student Name", name: "name", widget: "string" }
+              - { label: "Percentage Score", name: "percentage", widget: "string" }
+              - { label: "Parent Name (Father)", name: "parentName", widget: "string" }
+              - { label: "Rank Badge (e.g. 🥇 1st Rank)", name: "rankText", widget: "string" }
+              - { label: "Rank Style Class (rank-1 to rank-4)", name: "rankClass", widget: "string" }
+              - { label: "Student Photo", name: "photo", widget: "image" }
+      - name: "gallery"
+        label: "Photo Gallery"
+        file: "data/gallery.json"
+        fields:
+          - name: "gallery"
+            label: "Gallery Photos"
+            widget: "list"
+            fields:
+              - { label: "Photo Image", name: "src", widget: "image" }
+              - { label: "Alt Label", name: "alt", widget: "string" }
+              - { label: "Caption Title", name: "title", widget: "string" }
+              - { label: "Caption Description", name: "desc", widget: "text" }
+              - { label: "Grid Layout Style", name: "layout", widget: "select", options: ["", "wide", "tall"], default: "" }
+      - name: "downloads"
+        label: "Downloadable Resources"
+        file: "data/downloads.json"
+        fields:
+          - name: "downloads"
+            label: "Resources List"
+            widget: "list"
+            fields:
+              - { label: "Document Title", name: "name", widget: "string" }
+              - { label: "Metadata (e.g. PDF &middot; 240 KB)", name: "meta", widget: "string" }
+              - { label: "Document File Link (e.g. # or upload file)", name: "url", widget: "string" }

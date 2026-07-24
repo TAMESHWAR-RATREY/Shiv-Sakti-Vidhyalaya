@@ -1,0 +1,36 @@
+{
+  "toppers": [
+    {
+      "name": "Bhumika Jatwar",
+      "percentage": "92.70%",
+      "parentName": "D/o Mr. Jagdish Jatwar",
+      "rankText": "🥇 1st Rank",
+      "rankClass": "rank-1",
+      "photo": "images/topper_bhumika.png"
+    },
+    {
+      "name": "Sakshi Yadav",
+      "percentage": "91.10%",
+      "parentName": "D/o Mr. Vijay Kumar Yadav",
+      "rankText": "🥈 2nd Rank",
+      "rankClass": "rank-2",
+      "photo": "images/topper_sakshi.png"
+    },
+    {
+      "name": "Misti Yadav",
+      "percentage": "85.90%",
+      "parentName": "D/o Mr. Vijay Kumar Yadav",
+      "rankText": "🥉 3rd Rank",
+      "rankClass": "rank-3",
+      "photo": "images/topper_misti.png"
+    },
+    {
+      "name": "Kusum Patre",
+      "percentage": "80.20%",
+      "parentName": "D/o Mr. Dhanaram Patre",
+      "rankText": "✨ Outstanding",
+      "rankClass": "rank-4",
+      "photo": "images/topper_kusum.png"
+    }
+  ]
+}
